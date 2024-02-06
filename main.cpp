@@ -41,8 +41,6 @@ int main() {
 
         if (mouse_pressed) {
             cube.move(Vector2d(sf::Mouse::getPosition().x - last_x, sf::Mouse::getPosition().y - last_y));
-            last_x = sf::Mouse::getPosition().x;
-            last_y = sf::Mouse::getPosition().y;
         }
 
         cube.draw(window);

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <limits>
+#include <iostream>
 
 
 // bool is_equal(double x, double y) {
@@ -159,17 +160,25 @@ public:
         calculate_position();
     }
 
-    void move(Vector2d&& direction) {
+    void move(Vector2d direction) {
 
         const int intensivity = 1;
+
+        // std::cout << direction.x << ' ' << direction.y << '\n';
 
         double cosa = direction.x / sqrt(pow(direction.x, 2) + pow(direction.y, 2));
         double sina = direction.y / sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-        double new_ax = (a.x - sina/cosa * a.y) / (cosa - sina * sina / cosa);
-        double new_ay = (a.x - cosa/sina * a.y) / (sina - cosa * cosa / sina);
-        double new_bx = (b.x - sina/cosa * b.y) / (cosa - sina * sina / cosa);
-        double new_by = (b.x - cosa/sina * b.y) / (sina - cosa * cosa / sina);
+        // std::cout << cosa << ' ' << sina << '\n';
+        
+
+        double new_ax = a.x * cosa + a.y * sina; // (a.x - sina/cosa * a.y) / (cosa - sina * sina / cosa);
+        double new_ay = a.x * sina + a.y * cosa; // (a.x - cosa/sina * a.y) / (sina - cosa * cosa / sina);
+        double new_bx = b.x * cosa + b.y * sina; // (b.x - sina/cosa * b.y) / (cosa - sina * sina / cosa);
+        double new_by = b.x * sina + b.y * cosa; // (b.x - cosa/sina * b.y) / (sina - cosa * cosa / sina);
+
+        // std::cout << "a: " << new_ax << ' ' << new_ay << '\n';
+        // std::cout << "b: " << new_bx << ' ' << new_by << '\n';
 
         double rotate_angle = sign(direction.x) * direction.get_length() * intensivity; // in radians
 
@@ -187,6 +196,8 @@ public:
         a.y = new_ax * sina + new_ay * cosa;
         b.x = new_bx * cosa + new_by * sina;
         b.y = new_bx * sina + new_by * cosa;
+
+        calculate_position();
 
         // double nax = a.x * direction.x / sqrt(pow(direction.x, 2) + pow(direction.y, 2));
         // double nay = a.y * direction.x / sqrt(pow(direction.x, 2) + pow(direction.y, 2));

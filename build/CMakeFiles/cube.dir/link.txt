@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/cube.dir/main.cpp.o CMakeFiles/cube.dir/cube.cpp.o -o cube  -lsfml-graphics -lsfml-window -lsfml-system 

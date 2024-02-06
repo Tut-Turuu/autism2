@@ -1,3 +1,0 @@
-/home/nerd/Desktop/spining_cube/build/CMakeFiles/cube.dir
-/home/nerd/Desktop/spining_cube/build/CMakeFiles/edit_cache.dir
-/home/nerd/Desktop/spining_cube/build/CMakeFiles/rebuild_cache.dir
