@@ -162,40 +162,48 @@ public:
 
     void move(Vector2d direction) {
 
-        const int intensivity = 1;
+        if (direction.x == 0 || direction.y == 0) return;
 
-        // std::cout << direction.x << ' ' << direction.y << '\n';
+        const double intensivity = 0.001;
+
+        std::cout << "direction: " << direction.x << ' ' << direction.y << '\n';
 
         double cosa = direction.x / sqrt(pow(direction.x, 2) + pow(direction.y, 2));
         double sina = direction.y / sqrt(pow(direction.x, 2) + pow(direction.y, 2));
 
-        // std::cout << cosa << ' ' << sina << '\n';
+        std::cout << "cossin: " << cosa << ' ' << sina << '\n';
         
 
         double new_ax = a.x * cosa + a.y * sina; // (a.x - sina/cosa * a.y) / (cosa - sina * sina / cosa);
-        double new_ay = a.x * sina + a.y * cosa; // (a.x - cosa/sina * a.y) / (sina - cosa * cosa / sina);
+        double new_ay = -a.x * sina + a.y * cosa; // (a.x - cosa/sina * a.y) / (sina - cosa * cosa / sina);
         double new_bx = b.x * cosa + b.y * sina; // (b.x - sina/cosa * b.y) / (cosa - sina * sina / cosa);
-        double new_by = b.x * sina + b.y * cosa; // (b.x - cosa/sina * b.y) / (sina - cosa * cosa / sina);
-
-        // std::cout << "a: " << new_ax << ' ' << new_ay << '\n';
-        // std::cout << "b: " << new_bx << ' ' << new_by << '\n';
+        double new_by = -b.x * sina + b.y * cosa; // (b.x - cosa/sina * b.y) / (sina - cosa * cosa / sina);
 
         double rotate_angle = sign(direction.x) * direction.get_length() * intensivity; // in radians
 
-        double current_angle = atan(a.z / new_ax);
+        double current_angle = sign(new_ax) * acos(a.z / sqrt(pow(a.z, 2) + pow(new_ax, 2)));
 
-        new_ax = cos(rotate_angle + current_angle);
-        a.z = sin(rotate_angle + current_angle);
+        std::cout << "curr_angle: " << current_angle << '\n';
 
-        current_angle = atan(b.z / new_bx);
+        double rotate_radius = sqrt(pow(a.z, 2) + pow(new_ax, 2));
 
-        new_bx = cos(rotate_angle + current_angle);
-        b.z = sin(rotate_angle + current_angle);
+        new_ax = rotate_radius * cos(rotate_angle + current_angle);
+        a.z = rotate_radius * sin(rotate_angle + current_angle);
 
-        a.x = new_ax * cosa + new_ay * sina;
+        current_angle = sign(new_bx) * acos(b.z / sqrt(pow(b.z, 2) + pow(new_bx, 2)));
+
+        rotate_radius = sqrt(pow(b.z, 2) + pow(new_bx, 2));
+
+        new_bx = rotate_radius * cos(rotate_angle + current_angle);
+        b.z = rotate_radius * sin(rotate_angle + current_angle);
+
+        a.x = new_ax * cosa - new_ay * sina;
         a.y = new_ax * sina + new_ay * cosa;
-        b.x = new_bx * cosa + new_by * sina;
+        b.x = new_bx * cosa - new_by * sina;
         b.y = new_bx * sina + new_by * cosa;
+
+        std::cout << "a: " << a.x << ' ' << a.y << ' ' << a.z << '\n';
+        std::cout << "b: " << b.x << ' ' << b.y << ' ' << b.z  << '\n';
 
         calculate_position();
 

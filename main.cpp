@@ -18,6 +18,8 @@ int main() {
 
     double last_x;
     double last_y;
+    int i = 0;
+
 
     while (window.isOpen()) {
 
@@ -40,7 +42,14 @@ int main() {
         }
 
         if (mouse_pressed) {
+            // if (i == 5) {
+            //     window.close();
+            // }
+            // ++i;
             cube.move(Vector2d(sf::Mouse::getPosition().x - last_x, sf::Mouse::getPosition().y - last_y));
+
+            last_x = sf::Mouse::getPosition().x;
+            last_y = sf::Mouse::getPosition().y;
         }
 
         cube.draw(window);
