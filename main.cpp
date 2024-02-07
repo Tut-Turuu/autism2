@@ -11,7 +11,7 @@ int main() {
 
     srand(time(0));
 
-    sf::RenderWindow window(sf::VideoMode(800, 700), "Spining Cube", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(800, 700), "Autism2", sf::Style::Default, settings);
     Cube cube(400, 350, {-100, 0, 0}, {0, -100, 0}, {rand()%256, rand()%256, rand()%256});
 
     bool mouse_pressed = false;
@@ -48,8 +48,8 @@ int main() {
             // ++i;
             cube.move(Vector2d(sf::Mouse::getPosition().x - last_x, sf::Mouse::getPosition().y - last_y));
 
-            last_x = sf::Mouse::getPosition().x;
-            last_y = sf::Mouse::getPosition().y;
+            // last_x = sf::Mouse::getPosition().x;
+            // last_y = sf::Mouse::getPosition().y;
         }
 
         cube.draw(window);

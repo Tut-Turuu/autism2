@@ -93,8 +93,8 @@ class Cube {
 
         Edge(Point a, Point b, Point c, Point d, sf::Color orig_color, Vector3d light_vec): Edge(a, b, c, d)  {
             
-            is_visible = ((a.z + c.z) / 2.0 > 0);
-            // is_visible = true;
+            // is_visible = ((a.z + c.z) / 2.0 > 0);
+            is_visible = true;
 
 
             // (cos(l, n) + 1) / 2
@@ -164,7 +164,7 @@ public:
 
         if (direction.x == 0 || direction.y == 0) return;
 
-        const double intensivity = 0.001;
+        const double intensivity = 0.0000000001;
 
         std::cout << "direction: " << direction.x << ' ' << direction.y << '\n';
 
